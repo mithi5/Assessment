@@ -15,7 +15,7 @@ spec:
       containers:
        - name: tomcat
          image: mithi5/my-app:latest
-		 imagePullPolicy: IfNotPresent
+	 imagePullPolicy: IfNotPresent
          ports:
           - containerPort: 8080
 
@@ -37,5 +37,5 @@ spec:
   ports:
    - name: http
      protocol: "TCP"
-	 port: 8080
-	 targetPort: 80
+     port: 8080
+     targetPort: 80
