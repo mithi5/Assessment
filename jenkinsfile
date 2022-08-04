@@ -1,0 +1,28 @@
+pipeline {
+    agent {
+        label {
+        label "built-in"
+        customWorkspace "/mithi"
+        }
+    }
+    stages{
+        stage("clone the Repo") {
+            steps {
+				sh "rm -rf *"
+                sh "git clone https://github.com/mithi5/Assessment.git"
+				}
+			}
+        stage ("build the docker image") {
+            steps {
+                dir ("/mithi/Assessment") {
+                sh 'docker build -t mithi5/my-app .'       
+                    }
+                }
+            }
+        stage ("Upload the Image file in Docker Registry") {
+            steps {
+                sh "docker push mithi/my-app"     
+				}    
+			}
+		}
+	}
