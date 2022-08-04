@@ -32,7 +32,7 @@ pipeline {
 		stage ("Deploy the Manifest at minikube cluster") {
             steps {
 				script{
-				kubernetesDeploy configs: 'deploymentservice.yml', kubeConfig: [path: ''], kubeconfigId: 'k8sconfig', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+				kubernetesDeploy (configs: 'deploymentservice.yml', kubeconfigId: 'k8sconfig') 
                 dir ("/mithi/Assessment") {
                 sh 'docker build -t mithi5/my-app .'       
                     }
