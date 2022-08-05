@@ -31,13 +31,19 @@ pipeline {
 		}
 		stage ("Deploy the Manifest at minikube cluster") {
             steps {
-				script{
-				kubernetesDeploy (configs: 'deploymentservice.yml', kubeconfigId: 'k8sconfig') 
                 dir ("/mithi/Assessment") {
-                sh 'docker build -t mithi5/my-app .'       
+				    sshagent(['37bc9e8e-e305-47a3-ab36-8a620b696a57']) {
+                    sh "scp -o StrictHostKeyChecking=no deploymentservice.yml ubuntu@172.31.32.16:/home/ubuntu"
+                    script{
+                        try{
+                            sh "ssh ubuntu@172.31.32.16 sudo kubectl apply -f ."
+                        }catch(error){
+                            sh "ssh ubuntu@172.31.32.16 sudo kubectl create -f ."
+                        }
+                        }
                     }
                 }
             }
-		}
+        }
 	}
 }
