@@ -34,6 +34,7 @@ pipeline {
                 dir ("/mithi/Assessment") {
                                     sshagent(['37bc9e8e-e305-47a3-ab36-8a620b696a57']) {
                     sh "scp -o StrictHostKeyChecking=no deploymentservice.yml ubuntu@172.31.32.16:/home/ubuntu"
+					sh "ssh ubuntu@172.31.32.16 sudo kubectl delete -f ."
                     script{
                         try{
                             sh "ssh ubuntu@172.31.32.16 sudo kubectl apply -f ."
