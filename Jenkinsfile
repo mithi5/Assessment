@@ -16,6 +16,7 @@ pipeline {
             steps {
                 dir ("/mithi/Assessment") {
                 sh 'docker build -t mithi5/my-app .'
+		echo "Hello"
                     }
                 }
             }
